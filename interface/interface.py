@@ -1,13 +1,14 @@
 import socket
 import sys
 
-class interface():
+class Interface():
 
 	def __init__(self, host, port):
 		self.host = host
 		self.port = port
 		self.isInit = False
-
+		self.start()
+	
 	def connect(self):
 		self.socket = socket.socket()
 		self.socket.connect((self.host, self.port))

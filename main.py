@@ -3,41 +3,31 @@
 import socket
 import sys
 
-host = "irc.freenode.net"
-port = 6667
+from interface import irc
+from interface import interface
+
+device_ip = "192.168.0.2"
+device_port = 80
+
+twitch_host = "irc.freenode.net"
+twitch_port = 6667
 
 nick = "john_cena"
 ident = "john_cena"
 realname = "john_cena"
 
-
-def connect_irc(host, port, nick, ident, realname):
-	s=socket.socket()
-	s.connect((host, port))
-	s.send("NICK %s\r\n" % nick)
-	s.send("USER %s %s bla :%s\r\n" % (ident, host, realname))
-
-	return s
-
-def read_irc(s):
-	readbuffer = s.recv(1024)
-	readbuffer = readbuffer.splitlines()
-	print readbuffer
-	return readbuffer
-
-def parse_buffer(readbuffer):
-	for line in readbuffer:
-		tokens = line.split()
-		print tokens
-		#for token in tokens:
-		#	print token
-
+command_list = {'forward' 	: 'F',
+		'backward' 	: 'B',
+		'left'		: 'L',
+		'right'		: 'R',
+		'function1'	: 'f1',
+		'function2'	: 'f2'
+		};
 
 def main():
-	socket = connect_irc(host, port, nick, ident, realname)
-	while 1:
-		readbuf = read_irc(socket)
-		parse_buffer(readbuf)
+	irc = Irc(twitch_host, twitch_port, nick, ident, realname)
+	controller = Controller(device_ip)
+	
 
 if __name__ == "__main__":
 	main()

@@ -1,7 +1,7 @@
 import socket 
 import sys
 
-class irc:
+class Irc:
 
 	def __init__(self, host, port, nick, ident, realname, max_bytes=1024):
 		self.socket = socket.socket()
@@ -12,7 +12,8 @@ class irc:
 		self.ident = ident
 		self.realname = realname
 		self.readbuffer = []
-	
+		self.start()
+		
 	def connect(self):
 		self.socket.connect((self.host,self.port))
 		self.socket.send("NICK %s\r\n" % nick)
